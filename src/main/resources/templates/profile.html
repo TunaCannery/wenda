@@ -22,6 +22,15 @@
                                     js-follow-user" data-id="$profileUser.user.id">关注</button>
                                     #end
                                 </div>
+
+                                <div class="zg-right">
+                                    <form action="/msg/detail" method="get">
+                                        <input type="text" name="to_id" value="$profileUser.user.id" style="display: none">
+                                        <!--<input type="text" name="conversationId" value="0_0" style="display: none">-->
+                                        <button class="zg-btn" type="submit">私信</button>
+                                    </form>
+                                </div>
+
                                 <a title="Barty" class="zm-item-link-avatar" href="/user/${profileUser.user.id}">
                                     <img src="${profileUser.user.headUrl}" class="zm-item-img-avatar">
                                 </a>
@@ -36,7 +45,7 @@
                                         /
                                         <a target="_blank" href="#" class="zg-link-gray-normal">${profileUser.commentCount} 回答</a>
                                         /
-                                        <a target="_blank" href="#" class="zg-link-gray-normal">548 赞同</a>
+                                        <a target="_blank" href="#" class="zg-link-gray-normal">5 赞同</a>
                                     </div>
                                 </div>
                             </div>

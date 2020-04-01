@@ -54,31 +54,42 @@ public class MessageController {
         return "letter";
     }
 
+
     @RequestMapping(path = {"/msg/detail"}, method = RequestMethod.GET)
     public String getConversationDetail(Model model,
-                                        @RequestParam("conversationId") String conversationId) {
-        try {
-            List<Message> messageList = messageService.getConversationDetail(conversationId, 0, 10);
-            List<ViewObject> messages = new ArrayList<>();
-            for (Message message : messageList) {
-                messageService.updateHasRead(hostHolder.getUser().getId()); //将已查看的message改为已读
-                ViewObject vo = new ViewObject();
-                vo.set("message", message);
-                vo.set("user", userService.getUser(message.getFromId()));
-                messages.add(vo);
-            }
-            model.addAttribute("messages", messages);
+                                        @RequestParam("to_id") int to_id) {
 
-        } catch (Exception e) {
-            logger.error("获取消息详情失败!" + e.getMessage());
-        }
+
+        model.addAttribute("to_user",userService.getUser(to_id));
+            try {
+
+                String iD = hostHolder.getUser().getId()+"_"+to_id;
+                List<Message> messageList = messageService.getConversationDetail(iD, 0, 10);
+                List<ViewObject> messages = new ArrayList<>();
+                for (Message message : messageList) {
+                    messageService.updateHasRead(hostHolder.getUser().getId()); //将已查看的message改为已读
+                    ViewObject vo = new ViewObject();
+                    vo.set("message", message);
+                    vo.set("user", userService.getUser(message.getFromId()));
+                    messages.add(vo);
+                }
+                model.addAttribute("messages", messages);
+
+
+            } catch (Exception e) {
+                logger.error("获取消息详情失败!" + e.getMessage());
+            }
+
+
         return "letterDetail";
     }
 
-    @RequestMapping(path = {"/msg/addMessage"}, method = RequestMethod.POST)
     @ResponseBody
+    @RequestMapping(path = {"/msg/addMessage"}, method = RequestMethod.POST)
     public String addMessage(@RequestParam("toName") String toName,
                              @RequestParam("content") String content) {
+        System.out.println("1");
+
         try {
             if (hostHolder.getUser() == null) {
                 return WendaUtil.getJSONString(999, "未登录!");
@@ -93,10 +104,12 @@ public class MessageController {
             message.setCreatedDate(new Date());
             message.setToId(user.getId());
             messageService.addMessage(message);
+
             return WendaUtil.getJSONString(0);
         } catch (Exception e) {
             logger.error("发送消息失败!" +e.getMessage());
             return WendaUtil.getJSONString(1, "发送消息失败!");
+
         }
     }
 }

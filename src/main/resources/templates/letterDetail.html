@@ -1,8 +1,21 @@
 #parse("header.html")
 <link rel="stylesheet" media="all" href="../styles/letter.css">
+
 <div id="main">
-    <div class="zg-wrap zu-main clearfix ">
+
+    <div class="zg-wrap zu-main clearfix  ">
+        <div style="float: left">
+            <a class="zm-item-link-avatar">
+                <img alt="头像" src="${to_user.headUrl}">
+            </a>
+
+        </div>
+        <div    style="margin-bottom: 100px">
+            <p id ="to_user" class="zm-list-content-medium" style="color: #25bb9b" >$to_user.name</p>
+        </div>
+
         <ul class="letter-chatlist">
+
             #foreach($message in $messages)
             <li id="msg-item-4009580">
                 <a class="list-head">
@@ -23,6 +36,29 @@
             </li>
             #end
         </ul>
+        <!--<a class="zu-top-nav-link" href="#" id="zh-top-nav-count-wrap" role="button"><span class="zg-right"></span>消息<span id="zh-top-nav-count" class="zu-top-nav-count zg-noti-number" style="display: none;">0</span></a>-->
+
+        <div class="zm-command clearfix">
+                            <span class=" zg-right">
+                                <button id="zh-top-nav-count-wrap" type="submit" class="submit-button zg-btn-blue">发送</button></span>
+        </div>
+        <!--<form action="/msg/addMessage" method="post">
+            <input type="hidden" name="toName" value="${to_user.name}"/>
+            <div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
+                <div class="zm-editable-editor-wrap" style="">
+                    <div class="zm-editable-editor-outer">
+                        <div class="zm-editable-editor-field-wrap">
+                            <textarea name="content" id="content" class="zm-editable-editor-field-element editable" style="width:100%;"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="zm-command clearfix">
+                            <span class=" zg-right">
+                                <button type="submit" class="submit-button zg-btn-blue">发送</button></span>
+                    </div>
+                </div>
+            </div>
+        </form>-->
 
     </div>
 </div>

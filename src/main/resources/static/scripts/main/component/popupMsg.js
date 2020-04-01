@@ -11,15 +11,29 @@ var oPopupAdd = new PopupAdd({
     var Component = Base.getClass('main.component.Component');
     var Util = Base.getClass('main.base.Util');
 
+
+
+
     Base.mix(PopupMsg, Component, {
         _tpl: [
             '<div class="zh-add-question-form" style="margin:0;">',
                 '<div class="zg-section-big clearfix">',
                     '<div class="add-question-section-title">发给：</div>',
                     '<div class="zg-form-text-input add-question-title-form" style="position: relative;">',
-                        '<input type="text" class="js-name zg-editor-input zu-seamless-input-origin-element" placeholder="姓名" style="height:22px;min-height:auto;"></textarea>',
+                        '<input id="to" type="text" value="" class="js-name zg-editor-input zu-seamless-input-origin-element"  style="height:22px;min-height:auto;"></textarea>',
                     '</div>',
                 '</div>',
+
+            '<script>',
+
+
+                'function f() {',
+                    'document.getElementById("to").value =document.getElementById("to_user").innerHTML;}',
+                'f();',
+
+            '</script>',
+
+
                 '<div class="zg-section-big">',
                     '<div class="add-question-section-title">内容：</div>',
                     '<div id="zh-question-suggest-detail-container" class="zm-editable-status-editing">',
@@ -51,6 +65,9 @@ var oPopupAdd = new PopupAdd({
         initialize: fInitialize,
         val: fVal
     });
+
+
+
 
     function fStaticShow(oConf) {
         var that = this;

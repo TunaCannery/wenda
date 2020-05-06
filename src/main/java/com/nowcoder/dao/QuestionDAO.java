@@ -17,7 +17,8 @@ public interface QuestionDAO {
             ") values (#{title},#{content},#{createdDate},#{userId},#{commentCount},#{contentDetail})"})
     int addQuestion(Question question);
 
-
+    @Update({"update question set title = #{title},content =#{content},content_detail = #{content_detail} where id =#{id} "})
+    void update(Question question);
 
     @Select({"select ", SELECT_FIELDS, " from", TABLE_NAME, " where id=#{id}"})
     Question selectById(int id);

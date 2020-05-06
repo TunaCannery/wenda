@@ -101,6 +101,8 @@ public class LoginController {
                 if (StringUtils.isNotBlank(next)) {
                     return "redirect:" + next;
                 }
+                if (userService.isAdmin(username))
+                    return "redirect:/admin";
                 System.out.println("return redirect:/;");
                 return "redirect:/";
             } else {

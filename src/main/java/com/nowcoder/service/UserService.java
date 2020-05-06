@@ -3,6 +3,7 @@ package com.nowcoder.service;
 import com.nowcoder.dao.LoginTicketDAO;
 import com.nowcoder.dao.UserDAO;
 import com.nowcoder.model.LoginTicket;
+import com.nowcoder.model.Question;
 import com.nowcoder.model.User;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -31,6 +32,26 @@ public class UserService {
 
     public User selectById(int id) {
         return userDAO.selectById(id);
+    }
+
+    public boolean isAdmin(String name){
+        return userDAO.selectByName(name).getRole().equals("admin");
+    }
+
+    public String changeRole(String name,String role){
+        User user = userDAO.selectByName(name);
+        user.setRole(role);
+        userDAO.changeRole(user);
+        return "success";
+    }
+
+
+    public List<User> selectAll(){
+        return userDAO.selectAll();
+    }
+
+    public List<Question> selectAllQuestion(){
+        return userDAO.selectAllQuestion();
     }
 
     public Map<String, String> upadatepsw(String username,String oldpassword, String password){

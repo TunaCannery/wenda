@@ -27,6 +27,15 @@ public class QuestionService {
         return questionDAO.addQuestion(question) > 0 ? question.getId() : 0;
     }
 
+    public String changeContent(int id,String title,String content,String content_detail){
+        Question question = questionDAO.selectById(id);
+        question.setContent(content);
+        question.setTitle(title);
+        question.setContent_detail(content_detail);
+        questionDAO.update(question);
+        return "success";
+    }
+
     public List<Question> getLatestQuestions(int userId, int offset, int limit) {
         return questionDAO.selectLatestQuestions(userId, offset, limit);
     }

@@ -64,7 +64,10 @@ public class MessageController {
             try {
 
                 String iD = hostHolder.getUser().getId()+"_"+to_id;
-                List<Message> messageList = messageService.getConversationDetail(iD, 0, 10);
+                String iD2 = to_id+"_"+hostHolder.getUser().getId();
+                List<Message> messageList = messageService.getConversationDetail(iD,0, 10);
+                List<Message> messageList2 = messageService.getConversationDetail(iD2,0, 10);
+
                 List<ViewObject> messages = new ArrayList<>();
                 for (Message message : messageList) {
                     messageService.updateHasRead(hostHolder.getUser().getId()); //将已查看的message改为已读
@@ -73,6 +76,15 @@ public class MessageController {
                     vo.set("user", userService.getUser(message.getFromId()));
                     messages.add(vo);
                 }
+                for (Message message : messageList2) {
+                    messageService.updateHasRead(hostHolder.getUser().getId()); //将已查看的message改为已读
+                    ViewObject vo = new ViewObject();
+                    vo.set("message", message);
+                    vo.set("user", userService.getUser(message.getFromId()));
+                    messages.add(vo);
+                }
+
+
                 model.addAttribute("messages", messages);
 
 

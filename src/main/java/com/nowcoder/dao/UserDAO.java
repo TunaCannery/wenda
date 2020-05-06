@@ -1,8 +1,11 @@
 package com.nowcoder.dao;
 
+import com.nowcoder.model.Question;
 import com.nowcoder.model.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -10,8 +13,18 @@ import org.springframework.stereotype.Service;
 public interface UserDAO {
     // 注意空格
     String TABLE_NAME = " user ";
-    String INSERT_FIELDS = " id, name, password, salt, head_url ";
+    String INSERT_FIELDS = " id, name, password, salt, head_url, role ";
     String SELECT_FIELDS = " id, " + INSERT_FIELDS;
+
+    @Select({"select ", SELECT_FIELDS, "from user"})
+    List<User> selectAll();
+
+    @Select({"select * from question"})
+    List<Question> selectAllQuestion();
+
+
+    @Update({"update  user set role = #{role} where name = #{name}"})
+    void changeRole(User user);
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELDS,
             ") values (#{id},#{name},#{password},#{salt},#{headUrl})"})
